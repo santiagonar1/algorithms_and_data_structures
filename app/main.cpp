@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <foo.hpp>
+#include <sorting_algorithms.hpp>
 
 int main() {
     std::cout << "Hello World!" << std::endl;
