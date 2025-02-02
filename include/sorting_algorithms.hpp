@@ -12,6 +12,8 @@ namespace alg {
     auto merge_sort(const std::vector<int> &values,
                     const std::function<bool(int, int)> &compare = std::less<int>{})
             -> std::vector<int>;
+
+    auto heap_sort(const std::vector<int> &values) -> std::vector<int>;
 }// namespace alg
 
 #endif//SORTING_ALGORITHMS_HPP

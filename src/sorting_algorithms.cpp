@@ -1,5 +1,7 @@
 #include "sorting_algorithms.hpp"
 
+#include "binary_heap.hpp"
+
 namespace alg {
 
     namespace internal {
@@ -52,5 +54,12 @@ namespace alg {
                 {values_to_sort.begin() + values_to_sort.size() / 2, values_to_sort.end()},
                 compare);
         return internal::merge(left_sorted, right_sorted, compare);
+    }
+
+    auto heap_sort(const std::vector<int> &values) -> std::vector<int> {
+        auto result = std::vector<int>{};
+        auto heap = ds::MinBinaryHeap(values);
+        while (!heap.empty()) { result.push_back(heap.extract_min()); }
+        return result;
     }
 }// namespace alg

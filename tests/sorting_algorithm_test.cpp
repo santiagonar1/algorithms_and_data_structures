@@ -41,3 +41,8 @@ TEST(MergeSort, WorksWithEmptyVector) {
     EXPECT_THAT(alg::merge_sort(unsorted), Eq(std::vector<int>{}));
 }
 
+TEST(HeapSort, SortsVector) {
+    const auto unsorted = std::vector{3, 1, 2};
+
+    EXPECT_THAT(alg::heap_sort(unsorted), Eq(std::vector{1, 2, 3}));
+}
