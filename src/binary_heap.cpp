@@ -28,6 +28,16 @@ namespace ds {
         }
     }
 
+    auto sift_up(std::vector<int> &values, const int start) -> void {
+        int node_id = start;
+        int parent_id = (node_id - 1) / 2;
+        while (node_id > 0 and values[parent_id] > values[node_id]) {
+            std::swap(values[parent_id], values[node_id]);
+            node_id = parent_id;
+            parent_id = (node_id - 1) / 2;
+        }
+    }
+
     MinBinaryHeap::MinBinaryHeap(const std::vector<int> &values)
         : _values(alg::merge_sort(values)) {}
 
@@ -56,13 +66,7 @@ namespace ds {
     auto MinBinaryHeap::insert(const int value) -> void {
         _values.push_back(value);
 
-        int node_id = size() - 1;
-        int parent_id = (node_id - 1) / 2;
-        while (node_id > 0 and _values[parent_id] > _values[node_id]) {
-            std::swap(_values[parent_id], _values[node_id]);
-            node_id = parent_id;
-            parent_id = (node_id - 1) / 2;
-        }
+        sift_up(_values, size() - 1);
     }
 
 }// namespace ds

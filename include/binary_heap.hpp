@@ -6,6 +6,7 @@
 namespace ds {
 
     auto sift_down(std::vector<int> &values, int start) -> void;
+    auto sift_up(std::vector<int> &values, int start) -> void;
 
     class MinBinaryHeap {
     public:
