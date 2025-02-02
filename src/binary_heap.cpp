@@ -10,6 +10,24 @@ namespace ds {
         auto has_child(const int i, const int size) -> bool { return 2 * i + 1 < size; }
     }// namespace internal
 
+    auto sift_down(std::vector<int> &values, const int start) -> void {
+        int parent_id = start;
+        while (internal::has_child(parent_id, static_cast<int>(values.size()))) {
+            const int left_child_id = 2 * parent_id + 1;
+            const int right_child_id = 2 * parent_id + 2;
+            int min_child_id = left_child_id;
+
+            if (right_child_id < values.size() and values[left_child_id] > values[right_child_id]) {
+                min_child_id = right_child_id;
+            }
+
+            if (values[parent_id] < values[min_child_id]) { break; }
+
+            std::swap(values[parent_id], values[min_child_id]);
+            parent_id = min_child_id;
+        }
+    }
+
     MinBinaryHeap::MinBinaryHeap(const std::vector<int> &values)
         : _values(alg::merge_sort(values)) {}
 
@@ -26,22 +44,7 @@ namespace ds {
         _values[0] = _values.back();
         _values.pop_back();
 
-        int parent_id = 0;
-        while (internal::has_child(parent_id, size())) {
-            const int left_child_id = 2 * parent_id + 1;
-            const int right_child_id = 2 * parent_id + 2;
-            int min_child_id = left_child_id;
-
-            if (right_child_id < size() and _values[left_child_id] > _values[right_child_id]) {
-                min_child_id = right_child_id;
-            }
-
-            if (_values[parent_id] < _values[min_child_id]) { break; }
-
-            std::swap(_values[parent_id], _values[min_child_id]);
-            parent_id = min_child_id;
-        }
-
+        sift_down(_values, 0);
 
         return min;
     }
