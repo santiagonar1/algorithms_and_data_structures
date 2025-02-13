@@ -46,3 +46,11 @@ TEST(HeapSort, SortsVector) {
 
     EXPECT_THAT(alg::heap_sort(unsorted), Eq(std::vector{1, 2, 3}));
 }
+
+TEST(HeapSort, HasInSituVariant) {
+    auto to_be_sorted = std::vector{3, 1, 2, 4};
+
+    alg::heap_sort(to_be_sorted);
+
+    EXPECT_THAT(to_be_sorted, Eq(std::vector{4, 3, 2, 1}));
+}

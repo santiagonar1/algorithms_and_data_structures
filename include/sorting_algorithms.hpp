@@ -14,6 +14,8 @@ namespace alg {
             -> std::vector<int>;
 
     auto heap_sort(const std::vector<int> &values) -> std::vector<int>;
+
+    auto heap_sort(std::vector<int> &values) -> void;
 }// namespace alg
 
 #endif//SORTING_ALGORITHMS_HPP

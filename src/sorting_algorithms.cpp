@@ -62,4 +62,16 @@ namespace alg {
         while (!heap.empty()) { result.push_back(heap.extract_min()); }
         return result;
     }
+
+    auto heap_sort(std::vector<int> &values) -> void {
+        for (int i = 0; i < values.size(); ++i) {
+            ds::sift_up(values, i);
+        }
+
+        for (int i = values.size() - 1; i > 0; --i) {
+            std::swap(values[0], values[i]);
+            ds::sift_down(values, 0, i - 1);
+        }
+    }
+
 }// namespace alg
