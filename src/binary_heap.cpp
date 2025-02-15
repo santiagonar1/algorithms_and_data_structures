@@ -12,7 +12,7 @@ namespace ds {
 
     auto sift_down(std::vector<int> &values, const int start, const int stop) -> void {
         int parent_id = start;
-        while (internal::has_child(parent_id, static_cast<int>(values.size())) and parent_id <= stop) {
+        while (internal::has_child(parent_id, static_cast<int>(values.size())) and parent_id < stop) {
             const int left_child_id = 2 * parent_id + 1;
             const int right_child_id = 2 * parent_id + 2;
             int min_child_id = left_child_id;
@@ -22,6 +22,10 @@ namespace ds {
             }
 
             if (values[parent_id] < values[min_child_id]) { break; }
+
+            if (min_child_id > stop and left_child_id <= stop and values[left_child_id] < values[parent_id]) {
+                min_child_id = left_child_id;
+            }
 
             std::swap(values[parent_id], values[min_child_id]);
             parent_id = min_child_id;
