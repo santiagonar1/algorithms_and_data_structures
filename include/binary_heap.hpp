@@ -1,11 +1,12 @@
 #ifndef BINARY_HEAP_HPP
 #define BINARY_HEAP_HPP
 
+#include <span>
 #include <vector>
 
 namespace ds {
 
-    auto sift_down(std::vector<int> &values, int start, int stop) -> void;
+    auto sift_down(std::span<int> values) -> void;
     auto sift_up(std::vector<int> &values, int start) -> void;
 
     class MinBinaryHeap {

@@ -70,7 +70,7 @@ namespace alg {
 
         for (int i = values.size() - 1; i > 0; --i) {
             std::swap(values[0], values[i]);
-            ds::sift_down(values, 0, i - 1);
+            ds::sift_down(std::span{values.begin(), values.begin() + i});
         }
     }
 
