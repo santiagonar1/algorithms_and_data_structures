@@ -7,7 +7,7 @@
 namespace ds {
 
     auto sift_down(std::span<int> values) -> void;
-    auto sift_up(std::vector<int> &values, int start) -> void;
+    auto sift_up(std::span<int> values) -> void;
 
     class MinBinaryHeap {
     public:

@@ -28,8 +28,8 @@ namespace ds {
         }
     }
 
-    auto sift_up(std::vector<int> &values, const int start) -> void {
-        int node_id = start;
+    auto sift_up(std::span<int> values) -> void {
+        int node_id = static_cast<int>(values.size()) - 1;
         int parent_id = (node_id - 1) / 2;
         while (node_id > 0 and values[parent_id] > values[node_id]) {
             std::swap(values[parent_id], values[node_id]);
@@ -66,7 +66,7 @@ namespace ds {
     auto MinBinaryHeap::insert(const int value) -> void {
         _values.push_back(value);
 
-        sift_up(_values, size() - 1);
+        sift_up(_values);
     }
 
 }// namespace ds

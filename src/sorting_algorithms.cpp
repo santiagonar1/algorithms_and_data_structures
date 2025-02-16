@@ -65,7 +65,7 @@ namespace alg {
 
     auto heap_sort(std::vector<int> &values) -> void {
         for (int i = 0; i < values.size(); ++i) {
-            ds::sift_up(values, i);
+            ds::sift_up(std::span{values.begin(), values.begin() + i + 1});
         }
 
         for (int i = values.size() - 1; i > 0; --i) {
