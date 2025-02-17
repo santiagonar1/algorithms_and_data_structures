@@ -1,8 +1,7 @@
 #include "sorting_algorithms.hpp"
 
 #include "binary_heap.hpp"
-
-#include <random>
+#include "utils.hpp"
 
 namespace alg {
 
@@ -29,13 +28,6 @@ namespace alg {
             return result;
         }
 
-        auto get_random_int(const int min, const int max) -> int {
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<> dis(min, max);
-            return dis(gen);
-        }
-
         // TODO: This fails for arrays with equal elements (e.g., [2, 2, 2]), as we end up in infinite loop
         auto quick_sort(std::span<int> values, const std::function<bool(int, int)> &compare)
                 -> void {
@@ -43,7 +35,7 @@ namespace alg {
 
             if (num_values <= 1) { return; }
 
-            const auto random_value = values[internal::get_random_int(0, num_values - 1)];
+            const auto random_value = values[::internal::get_random_int(0, num_values - 1)];
             auto num_less_than = 0;
 
             for (int i = 0; i < num_values; ++i) {
