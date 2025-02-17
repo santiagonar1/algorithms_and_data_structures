@@ -36,6 +36,7 @@ namespace alg {
             return dis(gen);
         }
 
+        // TODO: This fails for arrays with equal elements (e.g., [2, 2, 2]), as we end up in infinite loop
         auto quick_sort(std::span<int> values, const std::function<bool(int, int)> &compare)
                 -> void {
             const auto num_values = static_cast<int>(values.size());
