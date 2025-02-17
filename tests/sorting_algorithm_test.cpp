@@ -54,3 +54,23 @@ TEST(HeapSort, HasInSituVariant) {
 
     EXPECT_THAT(to_be_sorted, Eq(std::vector{4, 3, 2, 1}));
 }
+
+TEST(QuickSort, SortsVectorByDefaulFromMinToMax) {
+    const auto unsorted = std::vector{3, 1, 2};
+
+    EXPECT_THAT(alg::quick_sort(unsorted), Eq(std::vector{1, 2, 3}));
+}
+
+TEST(QuickSort, CanReceiveACompareFunction) {
+    const auto unsorted = std::vector{3, 1, 2};
+
+    EXPECT_THAT(alg::quick_sort(unsorted, std::greater<int>{}), Eq(std::vector{3, 2, 1}));
+}
+
+TEST(QuickSort, HasInSituVariant) {
+    auto to_be_sorted = std::vector{3, 1, 2, 4};
+
+    alg::quick_sort(to_be_sorted);
+
+    EXPECT_THAT(to_be_sorted, Eq(std::vector{1, 2, 3, 4}));
+}

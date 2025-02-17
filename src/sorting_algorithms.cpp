@@ -2,6 +2,8 @@
 
 #include "binary_heap.hpp"
 
+#include <random>
+
 namespace alg {
 
     namespace internal {
@@ -25,6 +27,33 @@ namespace alg {
             }
 
             return result;
+        }
+
+        auto get_random_int(const int min, const int max) -> int {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(min, max);
+            return dis(gen);
+        }
+
+        auto quick_sort(std::span<int> values, const std::function<bool(int, int)> &compare)
+                -> void {
+            const auto num_values = static_cast<int>(values.size());
+
+            if (num_values <= 1) { return; }
+
+            const auto random_value = values[internal::get_random_int(0, num_values - 1)];
+            auto num_less_than = 0;
+
+            for (int i = 0; i < num_values; ++i) {
+                if (compare(values[i], random_value)) {
+                    std::swap(values[i], values[num_less_than]);
+                    num_less_than++;
+                }
+            }
+
+            quick_sort(values.subspan(0, num_less_than), compare);
+            quick_sort(values.subspan(num_less_than, num_values - num_less_than), compare);
         }
     }// namespace internal
 
@@ -72,6 +101,19 @@ namespace alg {
             std::swap(values[0], values[i]);
             ds::sift_down(std::span{values.begin(), values.begin() + i});
         }
+    }
+
+    auto quick_sort(const std::vector<int> &values, const std::function<bool(int, int)> &compare)
+            -> std::vector<int> {
+        auto result = values;
+        internal::quick_sort(result, compare);
+        return result;
+    }
+
+
+    auto quick_sort(std::vector<int> &values, const std::function<bool(int, int)> &compare)
+            -> void {
+        internal::quick_sort(values, compare);
     }
 
 }// namespace alg
