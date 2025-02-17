@@ -67,6 +67,12 @@ TEST(QuickSort, CanReceiveACompareFunction) {
     EXPECT_THAT(alg::quick_sort(unsorted, std::greater<int>{}), Eq(std::vector{3, 2, 1}));
 }
 
+TEST(QuickSort, WorksIfAllElementsAreTheSame) {
+    const auto unsorted = std::vector{2, 2, 2};
+
+    EXPECT_THAT(alg::quick_sort(unsorted, std::greater<int>{}), Eq(std::vector{2, 2, 2}));
+}
+
 TEST(QuickSort, HasInSituVariant) {
     auto to_be_sorted = std::vector{3, 1, 2, 4};
 

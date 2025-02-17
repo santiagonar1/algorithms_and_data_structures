@@ -28,7 +28,6 @@ namespace alg {
             return result;
         }
 
-        // TODO: This fails for arrays with equal elements (e.g., [2, 2, 2]), as we end up in infinite loop
         auto quick_sort(std::span<int> values, const std::function<bool(int, int)> &compare)
                 -> void {
             const auto num_values = static_cast<int>(values.size());
@@ -37,16 +36,23 @@ namespace alg {
 
             const auto random_value = values[::internal::get_random_int(0, num_values - 1)];
             auto num_less_than = 0;
+            auto num_equal_than = 0;
 
             for (int i = 0; i < num_values; ++i) {
                 if (compare(values[i], random_value)) {
-                    std::swap(values[i], values[num_less_than]);
+                    std::swap(values[i], values[num_less_than + num_equal_than]);
+                    std::swap(values[num_less_than], values[num_less_than + num_equal_than]);
                     num_less_than++;
+                } else if (values[i] == random_value) {
+                    std::swap(values[i], values[num_less_than]);
+                    num_equal_than++;
                 }
             }
 
             quick_sort(values.subspan(0, num_less_than), compare);
-            quick_sort(values.subspan(num_less_than, num_values - num_less_than), compare);
+            quick_sort(values.subspan(num_less_than + num_equal_than,
+                                      num_values - (num_less_than + num_equal_than)),
+                       compare);
         }
     }// namespace internal
 
