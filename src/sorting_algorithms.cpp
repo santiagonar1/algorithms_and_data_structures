@@ -68,7 +68,7 @@ namespace alg {
             ds::sift_up(std::span{values.begin(), values.begin() + i + 1});
         }
 
-        for (int i = values.size() - 1; i > 0; --i) {
+        for (int i = static_cast<int>(values.size()) - 1; i > 0; --i) {
             std::swap(values[0], values[i]);
             ds::sift_down(std::span{values.begin(), values.begin() + i});
         }
