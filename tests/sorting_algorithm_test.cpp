@@ -4,6 +4,8 @@
 #include <sorting_algorithms.hpp>
 
 using testing::Eq;
+using testing::HasSubstr;
+using testing::ThrowsMessage;
 
 TEST(InsertSort, SortsVectorByDefaulFromMinToMax) {
     const auto unsorted = std::vector{3, 1, 2};
@@ -79,4 +81,19 @@ TEST(QuickSort, HasInSituVariant) {
     alg::quick_sort(to_be_sorted);
 
     EXPECT_THAT(to_be_sorted, Eq(std::vector{1, 2, 3, 4}));
+}
+
+TEST(CountSort, SortsValues) {
+    const auto unsorted = std::vector{3, 1, 2};
+
+    EXPECT_THAT(alg::count_sort(unsorted), Eq(std::vector{1, 2, 3}));
+}
+
+TEST(CountSort, OnlyWorksForNonNegativeValues) {
+    const auto unsorted = std::vector{3, 1, 2, -1};
+
+    const auto sort_call = [unsorted] { alg::count_sort(unsorted); };
+
+    EXPECT_THAT(sort_call,
+                ThrowsMessage<std::runtime_error>(HasSubstr("Negative values are not allowed")));
 }

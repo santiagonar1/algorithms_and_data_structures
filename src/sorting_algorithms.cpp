@@ -115,4 +115,23 @@ namespace alg {
         internal::quick_sort(values, compare);
     }
 
+    auto count_sort(const std::vector<int> &values) -> std::vector<int> {
+        const auto max_value = *std::ranges::max_element(values);
+        auto counters = std::vector<int>(max_value + 1);
+
+        for (const auto value: values) {
+            if (value < 0) { throw std::runtime_error("Negative values are not allowed"); }
+            counters[value]++;
+        }
+
+        auto values_to_sort = std::vector<int>(values.size());
+
+        int num_values = 0;
+        for (int i = 0; i < counters.size(); ++i) {
+            for (int j = 0; j < counters[i]; ++j) { values_to_sort[num_values++] = i; }
+        }
+
+        return values_to_sort;
+    }
+
 }// namespace alg
