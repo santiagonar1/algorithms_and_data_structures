@@ -26,6 +26,8 @@ namespace alg {
                     const std::function<bool(int, int)> &compare = std::less<int>{}) -> void;
 
     auto count_sort(const std::vector<int> &values) -> std::vector<int>;
+
+    auto radix_sort(const std::vector<int> &values) -> std::vector<int>;
 }// namespace alg
 
 #endif//SORTING_ALGORITHMS_HPP

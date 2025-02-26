@@ -3,6 +3,8 @@
 #include "binary_heap.hpp"
 #include "utils.hpp"
 
+#include <numeric>
+
 namespace alg {
 
     namespace internal {
@@ -133,5 +135,44 @@ namespace alg {
 
         return values_to_sort;
     }
+
+    auto radix_sort(const std::vector<int> &values) -> std::vector<int> {
+        // this simple implementation works for numbers with two digits
+        constexpr auto m = 10;
+
+        auto pairs = std::vector<std::pair<int, int>>{};
+        auto counters_units = std::vector<int>(m);
+        auto counters_tens = std::vector<int>(m);
+        for (const auto value: values) {
+            const auto tens = value / m;
+            const auto units = value % m;
+            pairs.emplace_back(tens, units);
+            counters_units[units]++;
+            counters_tens[tens]++;
+        }
+
+        auto positions = std::vector<int>(m);
+        std::exclusive_scan(counters_units.begin(), counters_units.end(), positions.begin(), 0);
+
+        auto pairs_units_sorted = std::vector<std::pair<int, int>>(pairs.size());
+        for (const auto &pair: pairs) {
+            pairs_units_sorted[positions[pair.second]] = pair;
+            positions[pair.second]++;
+        }
+
+        auto pairs_tens_sorted = std::vector<std::pair<int, int>>(pairs.size());
+        for (const auto &pair: pairs_units_sorted) {
+            pairs_tens_sorted[positions[pair.first]] = pair;
+            positions[pair.first]++;
+        }
+
+        auto values_sorted = std::vector<int>{};
+        for (const auto &pair: pairs_tens_sorted) {
+            values_sorted.push_back(pair.first * m + pair.second);
+        }
+
+        return values_sorted;
+    }
+
 
 }// namespace alg

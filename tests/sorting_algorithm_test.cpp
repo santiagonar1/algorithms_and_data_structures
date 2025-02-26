@@ -97,3 +97,9 @@ TEST(CountSort, OnlyWorksForNonNegativeValues) {
     EXPECT_THAT(sort_call,
                 ThrowsMessage<std::runtime_error>(HasSubstr("Negative values are not allowed")));
 }
+
+TEST(RadixSort, SortsValues) {
+    const auto unsorted = std::vector{3, 1, 2};
+
+    EXPECT_THAT(alg::radix_sort(unsorted), Eq(std::vector{1, 2, 3}));
+}
