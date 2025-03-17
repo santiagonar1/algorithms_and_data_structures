@@ -32,8 +32,6 @@ namespace alg {
 
             return nth_element(values.subspan(num_less_than, num_values - num_less_than),
                                index - num_less_than);
-
-            return 0;
         }
     }// namespace internal
 
