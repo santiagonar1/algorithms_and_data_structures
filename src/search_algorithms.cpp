@@ -35,12 +35,12 @@ namespace alg {
         }
     }// namespace internal
 
-    auto nth_element(const std::vector<int> &values, int index) -> int {
+    auto nth_element(const std::vector<int> &values, const int index) -> int {
         auto search_values = values;
         return internal::nth_element(search_values, index);
     }
 
-    auto find_in_sorted(const std::vector<int> &values, int value) -> int {
+    auto find_in_sorted(const std::vector<int> &values, const int value) -> int {
         auto l = -1;
         auto r = static_cast<int>(values.size());
 
