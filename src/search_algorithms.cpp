@@ -23,7 +23,6 @@ namespace alg {
                 if (values[i] < random_value) {
                     std::swap(values[i], values[num_less_than]);
                     num_less_than++;
-                } else {
                 }
             }
 
