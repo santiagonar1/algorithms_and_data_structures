@@ -42,4 +42,23 @@ namespace alg {
         auto search_values = values;
         return internal::nth_element(search_values, index);
     }
+
+    auto find_in_sorted(const std::vector<int> &values, int value) -> int {
+        auto l = -1;
+        auto r = static_cast<int>(values.size());
+
+        while (l < r - 1) {
+            const auto m = (l + r) / 2;
+            if (values[m] < value) {
+                l = m;
+            } else {
+                r = m;
+            }
+        }
+
+        if (values[r] != value) { return -1; }
+
+        return r;
+    }
+
 }// namespace alg
